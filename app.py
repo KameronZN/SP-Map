@@ -84,28 +84,27 @@ logo_url = 'EC_logo (2).png'
 st.sidebar.image(logo_url, use_column_width=True)
 
 st.sidebar.header("Filters")
+types = st.sidebar.multiselect("Select Serive Provider Type", options=data['Type'].unique())
 names = st.sidebar.multiselect("Select Service Prover Name", options=data['Name'].unique())
-citys = st.sidebar.multiselect("Select City", options=data['City'].unique())
-districts = st.sidebar.multiselect("Select District", options=data['District'].unique())
-provinces = st.sidebar.multiselect("Select Province", options=data['Province'].unique())
 statuses = st.sidebar.multiselect("Select Status", options=data['Status'].unique())
-types = st.sidebar.multiselect("Select Type", options=data['Type'].unique())
-
+provinces = st.sidebar.multiselect("Select Province", options=data['Province'].unique())
+districts = st.sidebar.multiselect("Select District", options=data['District'].unique())
+citys = st.sidebar.multiselect("Select City", options=data['City'].unique())
 
 # Apply filters
 filtered_data = data.copy()
-if names:
-    filtered_data = filtered_data[filtered_data['Name'].isin(names)]
-if citys:
-    filtered_data = filtered_data[filtered_data['City'].isin(citys)]
-if districts:
-    filtered_data = filtered_data[filtered_data['District'].isin(districts)]
-if provinces:
-    filtered_data = filtered_data[filtered_data['Province'].isin(provinces)]
-if statuses:
-    filtered_data = filtered_data[filtered_data['Status'].isin(statuses)]
 if types:
     filtered_data = filtered_data[filtered_data['Type'].isin(types)]
+if names:
+    filtered_data = filtered_data[filtered_data['Name'].isin(names)]
+if statuses:
+    filtered_data = filtered_data[filtered_data['Status'].isin(statuses)]
+if provinces:
+    filtered_data = filtered_data[filtered_data['Province'].isin(provinces)]
+if districts:
+    filtered_data = filtered_data[filtered_data['District'].isin(districts)]
+if citys:
+    filtered_data = filtered_data[filtered_data['City'].isin(citys)]
 
 # Create a Folium map centered on Rwanda
 m = folium.Map(location=[-1.9632, 29.8739], zoom_start=8)
